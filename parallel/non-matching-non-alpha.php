@@ -25,13 +25,19 @@ $i = 0;
 while (($sourceSentence = fgets($inSRC)) !== false && ($targetSentence = fgets($inTRG)) !== false) {
 	
 	//Let's see how many non-alphabetic characters are in the sentences.
-	//Latvian and Estonian diacritics only... Add more if working with other languages
+	//Only a few diacritics currently added... Add more in regular-expressions.php before working with other languages
 	$noAlpha_source = preg_replace($source_regex, "", $sourceSentence);
 	$noAlpha_target = preg_replace($target_regex, "", $targetSentence);
 	
+	$srcNonAlphaLen = strlen(trim($noAlpha_source));
+	$trgNonAlphaLen = strlen(trim($noAlpha_target));
+	
 	if(
-		(strlen($noAlpha_source) < strlen($noAlpha_target)*3) && 
-		(strlen($noAlpha_target) < strlen($noAlpha_source)*3)
+		$srcNonAlphaLen == 0 || 
+		$trgNonAlphaLen == 0 || (
+				($srcNonAlphaLen < $trgNonAlphaLen * 5) && 
+				($trgNonAlphaLen < $srcNonAlphaLen * 5)
+			)
 		)
     {
         fwrite($outSRC, $sourceSentence);

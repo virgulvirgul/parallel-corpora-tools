@@ -29,4 +29,4 @@ filename=$(basename "$2")
 extension="${filename##*.}"
 filename="${filename%.*}"
 
-php filter.php $1 $2 $1.lang.txt.$filename.$extension.lang.txt.bad
+php filter-parallel.php $1 $2 $1.lang.txt.$filename.$extension.lang.txt.bad

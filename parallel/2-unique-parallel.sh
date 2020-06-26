@@ -39,7 +39,7 @@ extension="${filename##*.}"
 filename="${filename%.*}"
 
 # Sort and get only unique sentence pairs
-sort $1.$filename.$extension.both | uniq -u > $1.$filename.$extension.both.unique
+sort -u $1.$filename.$extension.both > $1.$filename.$extension.both.unique
 
 # Split the sentences back into two
 php split-parallel.php $1 $2
@@ -76,7 +76,7 @@ php non-matching-non-alpha.php $1.up.nor.up.nor.nonalpha $2.up.nor.up.nor.nonalp
 # Remove sentences that have repeating tokens (this is more useful for filtering back-translated data)
 php repeating-tokens.php $1.up.nor.up.nor.nonalpha.nonmatch $2.up.nor.up.nor.nonalpha.nonmatch
 
+
 # Remove some useless files
 rm $2.up.nor.$filename.$extension.up.nor.both
 rm $2.up.nor.$filename.$extension.up.nor.both.unique
-
